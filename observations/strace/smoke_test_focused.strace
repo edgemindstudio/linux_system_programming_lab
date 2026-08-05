@@ -1,0 +1,6 @@
+getpid()                                = 29056
+write(1, "Linux System Programming Laborat"..., 36) = 36
+write(1, "Smoke test completed successfull"..., 35) = 35
+write(1, "Process ID: 29056\n", 18)     = 18
+exit_group(0)                           = ?
++++ exited with 0 +++

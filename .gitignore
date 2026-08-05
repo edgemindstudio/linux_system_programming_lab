@@ -1,0 +1,54 @@
+# Compiled binaries and object files
+
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.out
+*.exe
+
+# Build directories
+
+build/
+bin/
+lib/
+
+# Dependency files
+
+*.d
+
+# Debugging and profiling output
+
+core
+core.*
+*.prof
+*.gcda
+*.gcno
+*.gcov
+
+# Sanitizer and runtime logs
+
+asan.*
+ubsan.*
+tsan.*
+valgrind.*
+
+# Temporary files
+
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE and editor metadata
+
+.vscode/
+.idea/
+
+# Generated observation files that are not intentionally committed
+
+observations/**/*.log
+observations/**/*.tmp
