@@ -22,7 +22,7 @@ A topic is complete only when its completion criteria have been satisfied.
 
 ## Milestone 0 — Laboratory Foundation
 
-**Status:** In progress
+**Status:** Complete
 
 ### Objective
 
@@ -42,7 +42,7 @@ Establish a clean, repeatable environment for studying Linux systems programming
 * [x] Inspect the smoke test using at least one Linux tool.
 * [x] Add the first high-level mental map.
 * [x] Review the repository foundation.
-* [ ] Create the initial Git commit.
+* [x] Create the initial Git commit.
 
 ### Completion Criteria
 
