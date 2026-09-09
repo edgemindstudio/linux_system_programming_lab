@@ -1,30 +1,27 @@
-//
-// Created by fonke on 8/20/2026.
-//
-
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-int main (void){
-    int fd;
+#define OUTPUT_PATH "build/chapter02/data/love_demo.txt"
 
-    fd = open("love_demo.txt",
-        O_WRONLY | O_CREAT | O_TRUNC,
-        0664
-    );
+int main(void)
+{
+    int fd = open(OUTPUT_PATH,
+                  O_WRONLY | O_CREAT | O_TRUNC,
+                  0664);
 
     if (fd == -1) {
-        perror ("open");
-        return 1;
+        perror("open " OUTPUT_PATH);
+        return EXIT_FAILURE;
     }
 
-    printf("Created/opened file with fd=%d\n", fd);
+    printf("Created or opened %s with fd=%d\n", OUTPUT_PATH, fd);
 
     if (close(fd) == -1) {
-        perror ("close");
-        return 1;
+        perror("close " OUTPUT_PATH);
+        return EXIT_FAILURE;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
