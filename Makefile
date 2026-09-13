@@ -17,78 +17,134 @@ LDFLAGS :=
 LDLIBS :=
 
 BUILD_DIR := build
-DATA_DIR := $(BUILD_DIR)/chapter02/data
+CHAPTER ?= 02
 
-SOURCE_FILES := $(wildcard src/*.c)
-EXERCISE_FILES := $(wildcard exercises/chapter02_*.c)
-EXPERIMENT_FILES := $(wildcard experiments/chapter02_*.c)
+CHAPTER_DIRS := $(patsubst %/,%,$(dir $(wildcard chapters/*/README.md)))
+FOUNDATION_SOURCES := $(sort $(wildcard foundation/*.c))
+EXERCISE_SOURCES := $(sort $(wildcard chapters/*/exercises/*.c))
+EXPERIMENT_SOURCES := $(sort $(wildcard chapters/*/experiments/*.c))
+CHAPTER_SOURCES := $(EXERCISE_SOURCES) $(EXPERIMENT_SOURCES)
+ALL_C_SOURCES := $(FOUNDATION_SOURCES) $(CHAPTER_SOURCES)
 
-SOURCE_TARGETS := $(patsubst src/%.c,$(BUILD_DIR)/src/%,$(SOURCE_FILES))
-EXERCISE_TARGETS := $(patsubst exercises/%.c,$(BUILD_DIR)/exercises/%,$(EXERCISE_FILES))
-EXPERIMENT_TARGETS := $(patsubst experiments/%.c,$(BUILD_DIR)/experiments/%,$(EXPERIMENT_FILES))
-CHAPTER02_TARGETS := $(EXERCISE_TARGETS) $(EXPERIMENT_TARGETS)
+FOUNDATION_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%,$(FOUNDATION_SOURCES))
+CHAPTER_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%,$(CHAPTER_SOURCES))
+ALL_TARGETS := $(FOUNDATION_TARGETS) $(CHAPTER_TARGETS)
 
-.PHONY: all smoke exercises experiments chapter02 run run-smoke test tidy \
-	sanitize list clean help
+ACTIVE_CHAPTER_DIRS := $(sort \
+	$(foreach source,$(CHAPTER_SOURCES), \
+		$(patsubst %/,%,$(dir $(patsubst %/,%,$(dir $(source)))))))
+ALL_DATA_DIRS := $(addprefix $(BUILD_DIR)/,$(addsuffix /data,$(ACTIVE_CHAPTER_DIRS)))
 
-all: smoke chapter02
+SELECTED_CHAPTER_DIR := $(firstword $(wildcard chapters/$(CHAPTER)-*))
+SELECTED_SOURCES := \
+	$(sort \
+		$(wildcard $(SELECTED_CHAPTER_DIR)/exercises/*.c) \
+		$(wildcard $(SELECTED_CHAPTER_DIR)/experiments/*.c))
+SELECTED_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%,$(SELECTED_SOURCES))
+SELECTED_DATA_DIR := $(BUILD_DIR)/$(SELECTED_CHAPTER_DIR)/data
+SELECTED_TESTS := $(sort $(wildcard $(SELECTED_CHAPTER_DIR)/tests/*.sh))
+ALL_TESTS := $(sort $(wildcard chapters/*/tests/*.sh))
+KNOWN_DATA_DIRS := $(sort $(ALL_DATA_DIRS) $(SELECTED_DATA_DIR))
 
-smoke: $(SOURCE_TARGETS)
+CHAPTER_NUMBERS := 01 02 03 04 05 06 07 08 09 10 11
+CHAPTER_ALIASES := $(addprefix chapter,$(CHAPTER_NUMBERS))
 
-exercises: $(EXERCISE_TARGETS)
+.PHONY: all foundation chapters chapter $(CHAPTER_ALIASES) run test test-all \
+	tidy tidy-chapter sanitize list check-structure clean help
 
-experiments: $(EXPERIMENT_TARGETS)
+all: foundation chapters
 
-chapter02: $(CHAPTER02_TARGETS) | $(DATA_DIR)
+foundation: $(FOUNDATION_TARGETS)
 
-$(BUILD_DIR)/src/%: src/%.c
+chapters: $(ALL_DATA_DIRS) $(CHAPTER_TARGETS)
+
+$(BUILD_DIR)/%: %.c
 	@mkdir -p $(@D)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
 
-$(BUILD_DIR)/exercises/%: exercises/%.c | $(DATA_DIR)
-	@mkdir -p $(@D)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
-
-$(BUILD_DIR)/experiments/%: experiments/%.c | $(DATA_DIR)
-	@mkdir -p $(@D)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
-
-$(DATA_DIR):
+$(KNOWN_DATA_DIRS):
 	@mkdir -p $@
 
-run: run-smoke
+ifeq ($(strip $(SELECTED_CHAPTER_DIR)),)
+chapter:
+	@printf 'error: no chapter directory matches CHAPTER=%s\n' '$(CHAPTER)' >&2
+	@exit 2
 
-run-smoke: $(BUILD_DIR)/src/smoke_test
-	./$(BUILD_DIR)/src/smoke_test
+test:
+	@printf 'error: no chapter directory matches CHAPTER=%s\n' '$(CHAPTER)' >&2
+	@exit 2
 
-test: chapter02
-	bash tests/chapter02_smoke.sh
+tidy-chapter:
+	@printf 'error: no chapter directory matches CHAPTER=%s\n' '$(CHAPTER)' >&2
+	@exit 2
+else
+chapter: $(SELECTED_DATA_DIR) $(SELECTED_TARGETS)
+	@printf 'Built Chapter %s from %s\n' '$(CHAPTER)' '$(SELECTED_CHAPTER_DIR)'
+
+test: chapter
+	@if [ -z '$(strip $(SELECTED_TESTS))' ]; then \
+		printf 'No tests exist yet for Chapter %s.\n' '$(CHAPTER)'; \
+	else \
+		set -e; \
+		for script in $(SELECTED_TESTS); do \
+			printf 'Running %s\n' "$$script"; \
+			bash "$$script"; \
+		done; \
+	fi
+
+tidy-chapter:
+	@if [ -z '$(strip $(SELECTED_SOURCES))' ]; then \
+		printf 'No C sources exist yet for Chapter %s.\n' '$(CHAPTER)'; \
+	else \
+		clang-tidy $(SELECTED_SOURCES) -- $(CPPFLAGS) $(CFLAGS); \
+	fi
+endif
+
+$(CHAPTER_ALIASES):
+	@$(MAKE) --no-print-directory chapter CHAPTER=$(patsubst chapter%,%,$@)
+
+run: $(BUILD_DIR)/foundation/smoke_test
+	./$(BUILD_DIR)/foundation/smoke_test
+
+test-all: chapters
+	@if [ -z '$(strip $(ALL_TESTS))' ]; then \
+		printf 'No chapter tests exist yet.\n'; \
+	else \
+		set -e; \
+		for script in $(ALL_TESTS); do \
+			printf 'Running %s\n' "$$script"; \
+			bash "$$script"; \
+		done; \
+	fi
 
 tidy:
-	clang-tidy $(SOURCE_FILES) $(EXERCISE_FILES) $(EXPERIMENT_FILES) -- \
-		$(CPPFLAGS) $(CFLAGS)
+	clang-tidy $(ALL_C_SOURCES) -- $(CPPFLAGS) $(CFLAGS)
 
 sanitize:
 	$(MAKE) clean
 	$(MAKE) CFLAGS='$(CFLAGS) -fsanitize=address,undefined -fno-omit-frame-pointer' all
 
 list:
-	@printf '%s\n' $(SOURCE_TARGETS) $(CHAPTER02_TARGETS)
+	@printf '%s\n' $(ALL_TARGETS)
+
+check-structure:
+	bash scripts/verify_structure.sh
 
 clean:
 	rm -rf $(BUILD_DIR)
 
 help:
 	@printf '%s\n' \
-		'make             Build the smoke test and all Chapter 2 programs' \
-		'make smoke       Build programs in src/' \
-		'make chapter02   Build all Chapter 2 exercises and experiments' \
-		'make exercises   Build Chapter 2 exercises only' \
-		'make experiments Build Chapter 2 experiments only' \
-		'make run         Build and run the smoke test' \
-		'make test        Build and run deterministic Chapter 2 checks' \
-		'make tidy        Run clang-tidy over C sources' \
-		'make sanitize    Rebuild with AddressSanitizer and UBSan' \
-		'make list        List all generated executable paths' \
-		'make clean       Remove generated build files' \
-		'make help        Display available targets'
+		'make                         Build the foundation and every implemented chapter' \
+		'make chapter CHAPTER=02      Build one chapter by its two-digit number' \
+		'make chapter02               Convenience alias for Chapter 02' \
+		'make test CHAPTER=02         Build and test one chapter' \
+		'make test-all                Build and test every implemented chapter' \
+		'make run                     Build and run the foundation smoke test' \
+		'make tidy                    Run clang-tidy over every C source' \
+		'make tidy-chapter CHAPTER=02 Run clang-tidy over one chapter' \
+		'make sanitize                Rebuild everything with ASan and UBSan' \
+		'make list                    List all generated executables' \
+		'make check-structure         Validate the chapter directory contract' \
+		'make clean                   Remove generated build output' \
+		'make help                    Display these targets'

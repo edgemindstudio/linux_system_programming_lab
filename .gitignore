@@ -50,5 +50,5 @@ valgrind.*
 
 # Generated observation files that are not intentionally committed
 
-observations/**/*.log
-observations/**/*.tmp
+**/observations/**/*.log
+**/observations/**/*.tmp

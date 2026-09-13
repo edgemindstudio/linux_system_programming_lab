@@ -1,539 +1,238 @@
 # Linux System Programming Laboratory Roadmap
 
-This roadmap organizes the study of Robert Love's *Linux System Programming* into practical learning milestones.
-
-The roadmap is not based only on page or chapter completion. Progress is measured by demonstrated understanding, implementation, observation, and explanation.
+This roadmap follows the eleven chapters of Robert Love's *Linux System
+Programming*, second edition. Progress is measured by demonstrated
+understanding, implementation, observation, and explanation—not by reading
+alone.
 
 ## Progress States
 
-Each milestone or topic may have one of these states:
+- Not started
+- Reading
+- Implementing
+- Experimenting
+- Reviewing
+- Complete
+- Revisit later
 
-* Not started
-* Reading
-* Implementing
-* Experimenting
-* Reviewing
-* Complete
-* Revisit later
+## Book Progress
 
-A topic is complete only when its completion criteria have been satisfied.
+| Chapter | Title | Status |
+|---:|---|---|
+| 1 | Introduction and Essential Concepts | In progress |
+| 2 | File I/O | Lab prepared; study in progress |
+| 3 | Buffered I/O | Not started |
+| 4 | Advanced File I/O | Not started |
+| 5 | Process Management | Not started |
+| 6 | Advanced Process Management | Not started |
+| 7 | Threading | Not started |
+| 8 | File and Directory Management | Not started |
+| 9 | Memory Management | Not started |
+| 10 | Signals | Not started |
+| 11 | Time | Not started |
 
----
-
-## Milestone 0 — Laboratory Foundation
+## Repository Foundation
 
 **Status:** Complete
 
-### Objective
+The repository has:
 
-Establish a clean, repeatable environment for studying Linux systems programming.
+- a documented learning method;
+- strict C17 compilation warnings;
+- an introductory smoke test;
+- reproducible build commands;
+- chapter-selectable builds and tests;
+- an ignored, disposable build tree;
+- a structure validator;
+- Git history and a remote repository.
 
-### Deliverables
+## Chapter 1 — Introduction and Essential Concepts
 
-* [x] Create the repository.
-* [x] Initialize Git on the `main` branch.
-* [x] Create the repository directory structure.
-* [x] Write the repository purpose and learning method in `README.md`.
-* [x] Define the study roadmap.
-* [x] Add a suitable `.gitignore`.
-* [x] Establish a strict C build configuration.
-* [x] Add an introductory smoke-test program.
-* [x] Compile and run the smoke test.
-* [x] Inspect the smoke test using at least one Linux tool.
-* [x] Add the first high-level mental map.
-* [x] Review the repository foundation.
-* [x] Create the initial Git commit.
+**Status:** In progress
 
-### Completion Criteria
+Focus:
 
-Milestone 0 is complete when:
+- system programming;
+- user space and kernel space;
+- system calls and the C library;
+- APIs and ABIs;
+- standards and portability;
+- files, processes, threads, users, signals, and IPC;
+- headers, return values, errno, and manual pages.
 
-* the repository builds successfully;
-* the smoke-test program runs successfully;
-* generated files are excluded from Git;
-* the repository purpose and study process are documented;
-* the first mental map is stored in the repository;
-* the working tree is clean after the initial commit.
+Completion requires explaining the user-to-kernel path, distinguishing library
+calls from system calls, interpreting failures correctly, and connecting APIs
+and ABIs to compiler/runtime work.
 
-No major chapter exercise belongs in this milestone.
+## Chapter 2 — File I/O
 
----
+**Status:** Lab prepared; study in progress
 
-## Milestone 1 — Linux Systems Programming Foundations
+Focus:
 
-**Status:** Not started
+- file descriptors and standard descriptors;
+- open, creat, read, write, close, and lseek;
+- access modes, creation flags, permissions, and umask;
+- short reads, partial writes, EINTR, and nonblocking I/O;
+- append behavior and synchronized I/O;
+- direct I/O;
+- positional I/O and truncation;
+- select, pselect, poll, the VFS, page cache, and writeback.
 
-### Core Questions
+The prepared laboratory contains twelve focused exercises, seven experiments,
+a complete study guide, a mental model, a tracing helper, and deterministic
+tests.
 
-* What is systems programming?
-* What is the difference between user space and kernel space?
-* What is an operating system?
-* What is the Linux kernel?
-* What is a system call?
-* What is the role of the C library?
-* What is POSIX?
-* How do system calls differ from ordinary function calls?
-* How are errors reported?
-* What are `errno` and `perror()`?
-* How are Linux manual pages organized?
+Completion requires running and explaining the programs rather than merely
+building them.
 
-### Planned Outputs
-
-* introductory systems-programming notes;
-* user-space and kernel-space mental map;
-* system-call path mental map;
-* `errno` exercise;
-* manual-page navigation exercise;
-* introductory `strace` observation;
-* compiler/runtime relevance summary.
-
-### Completion Criteria
-
-I can:
-
-* explain the user-space-to-kernel path;
-* distinguish a library call from a system call;
-* explain how failures are reported;
-* use the relevant manual-page sections;
-* trace a simple program and identify important system calls;
-* connect these foundations to compilers and runtimes.
-
----
-
-## Milestone 2 — File Descriptors and Basic File I/O
+## Chapter 3 — Buffered I/O
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* file descriptors;
-* standard input, output, and error;
-* `open()`;
-* `read()`;
-* `write()`;
-* `close()`;
-* file offsets;
-* partial reads and writes;
-* interruption by signals;
-* open flags;
-* creation modes;
-* error handling.
+- FILE streams;
+- fopen, fdopen, fclose, fread, fwrite, fgets, and fprintf;
+- buffering modes and block sizes;
+- flushing, stream positions, EOF, and errors;
+- thread safety and unlocked stream operations;
+- the relationship between standard I/O and descriptor-based I/O.
 
-### Planned Exercises
-
-* print descriptor values;
-* open and read a file;
-* write to a file;
-* implement a basic file-copy utility;
-* redirect output to a file;
-* intentionally trigger and inspect I/O errors.
-
-### Planned Experiments
-
-* file-descriptor allocation and reuse;
-* behavior after closing a descriptor;
-* partial read behavior;
-* standard descriptor behavior;
-* file-offset changes;
-* effects of `O_APPEND`.
-
-### Compiler/Runtime Connection
-
-* reading source files;
-* writing object files and diagnostics;
-* handling standard streams;
-* build-tool pipelines;
-* runtime resource and log I/O.
-
----
-
-## Milestone 3 — Buffered I/O and the C Standard Library
+## Chapter 4 — Advanced File I/O
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* `FILE`;
-* standard I/O streams;
-* buffering modes;
-* `fopen()`;
-* `fread()`;
-* `fwrite()`;
-* `fgets()`;
-* `fprintf()`;
-* flushing;
-* end-of-file and error states;
-* interaction between buffered and unbuffered I/O.
+- scatter/gather I/O;
+- epoll and readiness models;
+- mmap, munmap, protection, and synchronization;
+- I/O advice and readahead;
+- synchronous and asynchronous operations;
+- I/O scheduling and performance.
 
-### Planned Experiments
-
-* terminal versus redirected-output buffering;
-* explicit flushing;
-* buffered versus unbuffered copying;
-* mixing file-descriptor and stream operations.
-
-### Compiler/Runtime Connection
-
-* formatted diagnostics;
-* source-text reading;
-* buffering performance;
-* deterministic output behavior.
-
----
-
-## Milestone 4 — Advanced File I/O
+## Chapter 5 — Process Management
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* vectored I/O;
-* positioned I/O;
-* nonblocking I/O;
-* synchronous I/O;
-* direct I/O;
-* I/O multiplexing;
-* file metadata;
-* advisory operations where relevant.
+- programs, processes, threads, process IDs, and hierarchy;
+- exec, fork, copy-on-write, and termination;
+- waiting, exit status, and zombie processes;
+- users, groups, sessions, process groups, and daemons.
 
-### Planned Experiments
-
-* compare sequential and positioned I/O;
-* inspect nonblocking behavior;
-* compare multiple-buffer versus single-buffer operations;
-* study readiness notification.
-
-### Compiler/Runtime Connection
-
-* scalable tool pipelines;
-* language servers;
-* build systems;
-* runtime event processing;
-* efficient binary and object-file access.
-
----
-
-## Milestone 5 — Files, Directories, and File-System Metadata
+## Chapter 6 — Advanced Process Management
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* file types;
-* metadata;
-* permissions;
-* ownership;
-* links;
-* directories;
-* current working directory;
-* path handling;
-* timestamps;
-* file-system limits.
+- process scheduling and priorities;
+- CPU-bound and I/O-bound behavior;
+- processor affinity and I/O priorities;
+- real-time scheduling, latency, jitter, and determinism;
+- memory locking and resource limits.
 
-### Planned Exercises
-
-* inspect file metadata;
-* list directory entries;
-* classify file types;
-* create and inspect links;
-* resolve and manipulate paths safely.
-
-### Compiler/Runtime Connection
-
-* include-file discovery;
-* module lookup;
-* dependency scanning;
-* build caching;
-* installation layouts;
-* executable and library discovery.
-
----
-
-## Milestone 6 — Processes and Program Execution
+## Chapter 7 — Threading
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* process identity;
-* process creation;
-* `fork()`;
-* process termination;
-* waiting;
-* zombies;
-* `exec` family;
-* environment variables;
-* process relationships.
+- concurrency, parallelism, and race conditions;
+- threading models and common patterns;
+- Pthreads creation, identity, termination, join, and detach;
+- mutexes, synchronization, and deadlocks.
 
-### Planned Exercises
-
-* create a child process;
-* inspect parent and child identifiers;
-* execute another program;
-* collect child exit status;
-* build a minimal process launcher.
-
-### Planned Experiments
-
-* memory behavior after `fork()`;
-* shared file offsets after `fork()`;
-* environment inheritance;
-* open descriptors across `exec`;
-* zombie-process observation.
-
-### Compiler/Runtime Connection
-
-* invoking assemblers and linkers;
-* build-system process orchestration;
-* test runners;
-* worker processes;
-* runtime process management.
-
----
-
-## Milestone 7 — Signals
+## Chapter 8 — File and Directory Management
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* signal concepts;
-* default actions;
-* signal handlers;
-* blocking;
-* pending signals;
-* interrupted system calls;
-* signal-safe programming;
-* signal delivery.
+- file metadata, permissions, and ownership;
+- extended attributes;
+- directories and directory streams;
+- hard links, symbolic links, unlinking, copying, and moving;
+- device nodes and random data;
+- inotify and filesystem-event monitoring.
 
-### Planned Exercises
-
-* install a basic handler;
-* block and unblock a signal;
-* communicate signal occurrence safely;
-* handle program interruption.
-
-### Planned Experiments
-
-* signal interruption of blocking calls;
-* standard versus real-time behavior where appropriate;
-* process termination and cleanup;
-* signal delivery across parent and child processes.
-
-### Compiler/Runtime Connection
-
-* interruption and cancellation;
-* crash reporting;
-* fault handling;
-* profiling;
-* runtime safepoint concepts;
-* process supervision.
-
----
-
-## Milestone 8 — Memory Management and Memory Mapping
+## Chapter 9 — Memory Management
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* process address space;
-* stack and heap;
-* page-based virtual memory;
-* `malloc()` and allocator behavior;
-* `brk()` and `sbrk()` as historical mechanisms;
-* `mmap()`;
-* `munmap()`;
-* protection;
-* anonymous mappings;
-* file-backed mappings;
-* page faults.
+- process address spaces, pages, and memory regions;
+- dynamic allocation, resizing, freeing, and alignment;
+- data-segment and anonymous-mapping mechanisms;
+- stack allocations and memory manipulation;
+- memory locking, residency, overcommit, and OOM behavior.
 
-### Planned Exercises
-
-* inspect process memory mappings;
-* create anonymous mappings;
-* map a file;
-* modify a mapped region;
-* change memory protections.
-
-### Planned Experiments
-
-* mapping visibility;
-* private versus shared mappings;
-* page-aligned behavior;
-* access violations;
-* memory growth and release.
-
-### Compiler/Runtime Connection
-
-* compiler arenas;
-* runtime heaps;
-* stacks;
-* garbage collection;
-* loaders;
-* JIT code memory;
-* executable permissions;
-* memory-mapped object files.
-
----
-
-## Milestone 9 — Threads and Synchronization
+## Chapter 10 — Signals
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* threads;
-* shared address spaces;
-* thread creation;
-* thread lifecycle;
-* mutexes;
-* condition variables;
-* race conditions;
-* deadlocks;
-* thread-local storage;
-* synchronization costs.
+- signal identifiers, delivery, disposition, and inheritance;
+- sending, blocking, pending, and waiting;
+- reentrancy and async-signal-safe behavior;
+- signal sets, siginfo, and payloads.
 
-### Planned Exercises
-
-* create and join threads;
-* protect shared state;
-* implement producer-consumer coordination;
-* detect and correct a race.
-
-### Planned Experiments
-
-* unsynchronized counter behavior;
-* mutex protection;
-* condition-variable wakeups;
-* deadlock construction and diagnosis;
-* sanitizer-assisted race detection.
-
-### Compiler/Runtime Connection
-
-* parallel compilation;
-* optimization pipelines;
-* thread pools;
-* work-stealing runtimes;
-* concurrent garbage collection;
-* runtime schedulers.
-
----
-
-## Milestone 10 — Time, Timers, and Performance Observation
+## Chapter 11 — Time
 
 **Status:** Not started
 
-### Core Topics
+Focus:
 
-* system time;
-* monotonic time;
-* clocks;
-* sleeping;
-* timers;
-* resource usage;
-* measurement pitfalls.
+- time representations and POSIX clocks;
+- resolution and clock selection;
+- wall-clock and process time;
+- setting and adjusting clocks;
+- sleeping, waiting, overruns, alarms, and timers.
 
-### Planned Exercises
-
-* measure elapsed time correctly;
-* compare clocks;
-* implement a basic timeout;
-* inspect process resource usage.
-
-### Compiler/Runtime Connection
-
-* compiler pass timing;
-* runtime scheduling;
-* profiling;
-* benchmark design;
-* timeout management;
-* latency analysis.
-
----
-
-## Milestone 11 — Integrated Systems Project
+## Cross-Chapter Projects
 
 **Status:** Not started
 
-### Objective
+Projects live in projects/ because they combine mechanisms from multiple
+chapters. Candidate projects include:
 
-Build one meaningful project that combines several mechanisms studied in the repository.
+- a robust copy and inspection utility;
+- a minimal command shell;
+- a process supervisor;
+- a memory-mapped binary inspector;
+- a concurrent log-processing tool;
+- a compiler-driver prototype.
 
-The exact project will be selected only after the supporting milestones are complete.
+Projects are not a substitute for Chapter 11. They begin only when their
+supporting chapters have been studied.
 
-### Candidate Projects
+## Standard Chapter Workflow
 
-* robust file-copy and inspection utility;
-* minimal command shell;
-* process supervisor;
-* memory-mapped file inspector;
-* concurrent log-processing tool;
-* simple event-driven service;
-* compiler-driver prototype that launches toolchain stages.
-
-### Required Engineering Qualities
-
-The project should include:
-
-* documented requirements;
-* clear architecture;
-* careful error handling;
-* tests;
-* reproducible builds;
-* system observations;
-* debugging evidence;
-* performance considerations;
-* a compiler/runtime relevance analysis.
-
----
-
-## Final Book Retrospective
-
-**Status:** Not started
-
-At the end of the book, document:
-
-* what I can now explain;
-* what I can now implement;
-* what I can now debug;
-* which assumptions were corrected;
-* which topics require deeper study;
-* how the material improved my compiler/runtime preparation;
-* what project or book should follow;
-* a complete mental map drawn from memory.
-
----
-
-## Standard Topic Workflow
-
-Every important topic should follow this sequence:
+Every important topic follows this sequence:
 
 1. Identify the problem.
-2. Build the high-level mental model.
+2. Build the mental model.
 3. Read the relevant material.
 4. Explain the concept in my own words.
-5. State a prediction.
+5. Predict Linux behavior.
 6. Write pseudocode.
-7. Implement the first version.
+7. Implement a first version.
 8. Compile with strict warnings.
 9. Run and inspect the behavior.
-10. Record observations.
+10. Record evidence.
 11. Explain discrepancies.
 12. Add tests where appropriate.
 13. Connect the mechanism to compiler/runtime engineering.
-14. Review before marking the topic complete.
+14. Review the topic.
 15. Commit the completed learning unit.
-
----
 
 ## Current Next Step
 
-Complete Milestone 0 by adding:
-
-1. `.gitignore`;
-2. the initial strict `Makefile`;
-3. a small smoke-test source file;
-4. the first repository mental map;
-5. the initial review and Git commit.
+Study Chapter 2 in order, beginning with standard file descriptors and
+descriptor allocation. Keep the prepared programs unchanged until each concept
+has been explained, predicted, run, and observed.
