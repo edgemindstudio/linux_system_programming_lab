@@ -36,6 +36,12 @@ THREADED_RECORDS_TARGET := \
 $(THREADED_RECORDS_TARGET): CFLAGS += -pthread
 $(THREADED_RECORDS_TARGET): LDLIBS += -pthread
 
+AIO_TARGETS := \
+	$(BUILD_DIR)/chapters/04-advanced-file-io/exercises/15_asynchronous_read \
+	$(BUILD_DIR)/chapters/04-advanced-file-io/experiments/aio_parallel_reads
+
+$(AIO_TARGETS): LDLIBS += -lrt
+
 ACTIVE_CHAPTER_DIRS := $(sort \
 	$(foreach source,$(CHAPTER_SOURCES), \
 		$(patsubst %/,%,$(dir $(patsubst %/,%,$(dir $(source)))))))

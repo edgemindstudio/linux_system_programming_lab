@@ -8,7 +8,7 @@ Programming*, second edition.
 | 01-introduction-and-essential-concepts | Introduction and Essential Concepts | In progress |
 | 02-file-io | File I/O | Lab prepared; study in progress |
 | 03-buffered-io | Buffered I/O | Lab prepared; study in progress |
-| 04-advanced-file-io | Advanced File I/O | Not started |
+| 04-advanced-file-io | Advanced File I/O | Lab prepared; study in progress |
 | 05-process-management | Process Management | Not started |
 | 06-advanced-process-management | Advanced Process Management | Not started |
 | 07-threading | Threading | Not started |

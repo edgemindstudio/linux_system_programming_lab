@@ -19,7 +19,8 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Chapter 1 — Introduction and Essential Concepts | In progress |
 | Chapter 2 — File I/O | Lab prepared; study in progress |
 | Chapter 3 — Buffered I/O | Lab prepared; study in progress |
-| Chapters 4–11 | Scaffolded; not started |
+| Chapter 4 — Advanced File I/O | Lab prepared; study in progress |
+| Chapters 5–11 | Scaffolded; not started |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.
@@ -180,7 +181,9 @@ build/
 ├── foundation/
 │   └── smoke_test
 └── chapters/
-    └── 02-file-io/
+    ├── 02-file-io/
+    ├── 03-buffered-io/
+    └── 04-advanced-file-io/
         ├── data/
         ├── exercises/
         └── experiments/

@@ -22,7 +22,7 @@ alone.
 | 1 | Introduction and Essential Concepts | In progress |
 | 2 | File I/O | Lab prepared; study in progress |
 | 3 | Buffered I/O | Lab prepared; study in progress |
-| 4 | Advanced File I/O | Not started |
+| 4 | Advanced File I/O | Lab prepared; study in progress |
 | 5 | Process Management | Not started |
 | 6 | Advanced Process Management | Not started |
 | 7 | Threading | Not started |
@@ -109,7 +109,7 @@ descriptor ownership, and measuring how buffering changes system-call traffic.
 
 ## Chapter 4 — Advanced File I/O
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -119,6 +119,16 @@ Focus:
 - I/O advice and readahead;
 - synchronous and asynchronous operations;
 - I/O scheduling and performance.
+
+The prepared laboratory contains sixteen focused exercises, seven experiments,
+a complete study guide, a mental model, a tracing helper, and deterministic
+tests.
+
+Completion requires explaining partial vectored transfers, contrasting epoll
+trigger modes, reasoning about mapping lifetimes and page faults,
+distinguishing cache visibility from durability, treating advice as a hint,
+managing asynchronous request lifetimes, and evaluating I/O performance in the
+context of the current storage stack.
 
 ## Chapter 5 — Process Management
 
@@ -241,6 +251,7 @@ Every important topic follows this sequence:
 
 ## Current Next Step
 
-Study Chapter 2 in order, beginning with standard file descriptors and
-descriptor allocation. Keep the prepared programs unchanged until each concept
-has been explained, predicted, run, and observed.
+Study Chapter 4 in order, beginning with scatter/gather I/O. Keep the prepared
+programs unchanged until each concept has been explained, predicted, run, and
+observed. Use the experiments to connect each abstraction to behavior on the
+current Linux system.

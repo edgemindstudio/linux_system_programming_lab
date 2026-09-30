@@ -83,6 +83,25 @@ do
     fi
 done
 
+required_chapter04_paths=(
+    chapters/04-advanced-file-io/notes/study-guide-pages-91-135.md
+    chapters/04-advanced-file-io/mental-models/advanced-file-io.md
+    chapters/04-advanced-file-io/exercises/01_writev_record.c
+    chapters/04-advanced-file-io/exercises/16_inode_order.c
+    chapters/04-advanced-file-io/experiments/linear_vs_vectored.c
+    chapters/04-advanced-file-io/experiments/scheduler_inventory.c
+    chapters/04-advanced-file-io/tests/smoke.sh
+    chapters/04-advanced-file-io/scripts/trace.sh
+)
+
+for path in "${required_chapter04_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 4 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -94,6 +113,13 @@ if find chapters/03-buffered-io -type f -name 'chapter03_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 3 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/04-advanced-file-io -type f -name 'chapter04_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 4 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 
