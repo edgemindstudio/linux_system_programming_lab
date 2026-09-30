@@ -1,3 +1,16 @@
+/*
+ * Exercise 02.03 — Compare open() access modes
+ *
+ * Purpose:
+ *   Request read-only and write-only access to the same file and observe that
+ *   open() validates the requested access against filesystem permissions.
+ *
+ * Linux behavior:
+ *   O_RDONLY, O_WRONLY, and O_RDWR are mutually exclusive access modes. A
+ *   successful read-only open does not imply that a write-only open will also
+ *   succeed. The kernel performs permission checks when each open() occurs.
+ */
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -5,6 +18,7 @@
 
 int main(void)
 {
+    /* /etc/hosts is normally readable by ordinary users. */
     int read_fd = open("/etc/hosts", O_RDONLY);
     int write_fd;
 
@@ -20,6 +34,7 @@ int main(void)
         return EXIT_FAILURE;
     }
 
+    /* This second call requests a different capability from the kernel. */
     write_fd = open("/etc/hosts", O_WRONLY);
     if (write_fd == -1) {
         perror("O_WRONLY was rejected");
@@ -28,6 +43,7 @@ int main(void)
     }
 
     printf("O_WRONLY unexpectedly succeeded: fd=%d\n", write_fd);
+    /* Avoid altering a system configuration file even when access is granted. */
     puts("No write was attempted. Check the account and file permissions.");
 
     if (close(write_fd) == -1) {

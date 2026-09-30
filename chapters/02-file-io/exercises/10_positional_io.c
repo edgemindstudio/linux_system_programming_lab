@@ -1,3 +1,16 @@
+/*
+ * Exercise 02.10 — Perform positional I/O with pread() and pwrite()
+ *
+ * Purpose:
+ *   Read and write at explicit byte positions while proving that positional
+ *   I/O leaves the open-file description's shared current offset unchanged.
+ *
+ * Linux behavior:
+ *   pread() and pwrite() combine positioning and transfer in one operation.
+ *   Unlike an lseek() followed by read() or write(), another thread cannot
+ *   change the targeted position between those two conceptual steps.
+ */
+
 #define _XOPEN_SOURCE 700
 
 #include <errno.h>
@@ -5,6 +18,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
+/* Ordinary write() still requires a loop because it may make partial progress. */
 static int write_all(int fd, const void *buffer, size_t count)
 {
     const char *cursor = buffer;
@@ -42,6 +56,7 @@ int main(void)
         return 1;
     }
 
+    /* Initialize ten bytes, then establish current offset zero for comparison. */
     if (write_all(fd, initial, sizeof(initial) - 1) == -1 ||
         lseek(fd, 0, SEEK_SET) == (off_t) -1) {
         perror("initialize file");
@@ -49,6 +64,7 @@ int main(void)
         return 1;
     }
 
+    /* lseek(..., 0, SEEK_CUR) queries the current offset without changing it. */
     before = lseek(fd, 0, SEEK_CUR);
     if (before == (off_t) -1 || pread(fd, slice, 3, 4) != 3) {
         perror("pread");
@@ -56,8 +72,10 @@ int main(void)
         return 1;
     }
 
+    /* pread() fetched bytes 4..6 but should have left the shared offset at zero. */
     after_pread = lseek(fd, 0, SEEK_CUR);
     if (after_pread == (off_t) -1 ||
+        /* Replace bytes 1..3 without moving the shared offset. */
         pwrite(fd, replacement, sizeof(replacement) - 1, 1) !=
             (ssize_t) (sizeof(replacement) - 1)) {
         perror("pwrite");
@@ -72,6 +90,7 @@ int main(void)
         return 1;
     }
 
+    /* The ordinary read starts at current offset zero and advances normally. */
     if (read(fd, whole, sizeof(initial) - 1) !=
         (ssize_t) (sizeof(initial) - 1)) {
         perror("ordinary read");

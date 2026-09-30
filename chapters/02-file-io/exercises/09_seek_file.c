@@ -1,3 +1,16 @@
+/*
+ * Exercise 02.09 — Move and observe a file offset with lseek()
+ *
+ * Purpose:
+ *   Demonstrate relative and absolute seeking, show that read()/write() use the
+ *   descriptor's current offset, and overwrite bytes in place.
+ *
+ * Linux behavior:
+ *   lseek() changes the open-file description's offset without transferring
+ *   data. Subsequent read() and write() calls begin at that offset and advance
+ *   it by the number of bytes transferred.
+ */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -7,6 +20,7 @@
 
 #define OUTPUT_PATH "build/chapters/02-file-io/data/seek_demo.txt"
 
+/* Complete a logical write even when write() accepts only a prefix. */
 static int write_all(int fd, const void *buffer, size_t count)
 {
     const unsigned char *cursor = buffer;
@@ -34,6 +48,7 @@ int main(void)
     char slice[4] = {0};
     char final[sizeof(initial)] = {0};
     off_t position;
+    /* O_RDWR is required because this exercise both reads and writes the file. */
     int fd = open(OUTPUT_PATH,
                   O_RDWR | O_CREAT | O_TRUNC,
                   0644);
@@ -49,6 +64,7 @@ int main(void)
         return EXIT_FAILURE;
     }
 
+    /* Writing ten bytes left the offset at 10; SEEK_CUR moves it back to 6. */
     position = lseek(fd, -4, SEEK_CUR);
     if (position == (off_t) -1) {
         perror("lseek SEEK_CUR");
@@ -58,6 +74,7 @@ int main(void)
     printf("After writing 10 bytes and seeking back 4: offset=%lld\n",
            (long long) position);
 
+    /* read() consumes bytes 6, 7, and 8, then advances the offset to 9. */
     if (read(fd, slice, 3) != 3) {
         perror("read slice");
         (void) close(fd);
@@ -65,6 +82,10 @@ int main(void)
     }
     printf("Read three bytes at offset 6: %s\n", slice);
 
+    /*
+     * Seek to absolute offset 2, overwrite two existing bytes, then rewind for
+     * a complete verification read. Overwriting does not insert new bytes.
+     */
     if (lseek(fd, 2, SEEK_SET) == (off_t) -1 ||
         write_all(fd, replacement, sizeof(replacement) - 1) == -1 ||
         lseek(fd, 0, SEEK_SET) == (off_t) -1) {

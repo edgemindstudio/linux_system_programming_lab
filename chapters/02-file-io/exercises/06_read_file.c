@@ -1,3 +1,16 @@
+/*
+ * Exercise 02.06 — Read a file through an unbuffered descriptor
+ *
+ * Purpose:
+ *   Repeatedly read raw bytes from a file and copy exactly those bytes to
+ *   standard output using the POSIX read() and write() interfaces.
+ *
+ * Linux behavior:
+ *   read() may return fewer bytes than requested. A positive value is the
+ *   number of bytes placed in the user-space buffer, zero means end-of-file,
+ *   and -1 means an error. A signal may interrupt either syscall with EINTR.
+ */
+
 #include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -6,6 +19,10 @@
 
 enum { BUFFER_SIZE = 256 };
 
+/*
+ * write() is allowed to consume only part of a buffer. Advance the cursor and
+ * retry until all count bytes are written or an unrecoverable error occurs.
+ */
 static int write_all(int fd, const void *buffer, size_t count)
 {
     const unsigned char *cursor = buffer;
@@ -14,9 +31,11 @@ static int write_all(int fd, const void *buffer, size_t count)
         ssize_t bytes_written = write(fd, cursor, count);
 
         if (bytes_written > 0) {
+            /* Cast only after proving that the signed return value is positive. */
             cursor += bytes_written;
             count -= (size_t) bytes_written;
         } else if (bytes_written == -1 && errno == EINTR) {
+            /* No payload was accepted; repeat the interrupted write(). */
             continue;
         } else {
             return -1;
@@ -28,6 +47,7 @@ static int write_all(int fd, const void *buffer, size_t count)
 
 int main(int argc, char **argv)
 {
+    /* This array is the user-space buffer into which the kernel copies bytes. */
     unsigned char buffer[BUFFER_SIZE];
     const char *path = argc == 2 ? argv[1] : "/etc/hosts";
     int fd;
@@ -43,10 +63,12 @@ int main(int argc, char **argv)
         return EXIT_FAILURE;
     }
 
+    /* Each successful read advances this descriptor's current file offset. */
     for (;;) {
         ssize_t bytes_read = read(fd, buffer, sizeof(buffer));
 
         if (bytes_read > 0) {
+            /* Write only the initialized portion of buffer returned by read(). */
             if (write_all(STDOUT_FILENO,
                           buffer,
                           (size_t) bytes_read) == -1) {
@@ -55,12 +77,14 @@ int main(int argc, char **argv)
                 return EXIT_FAILURE;
             }
         } else if (bytes_read == 0) {
+            /* Regular files report EOF with zero, not with a special byte. */
             break;
         } else if (errno != EINTR) {
             perror("read input");
             (void) close(fd);
             return EXIT_FAILURE;
         }
+        /* EINTR is recoverable here, so the loop issues read() again. */
     }
 
     if (close(fd) == -1) {

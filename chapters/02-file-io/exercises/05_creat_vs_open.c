@@ -1,3 +1,17 @@
+/*
+ * Exercise 02.05 — Compare creat() with open()
+ *
+ * Purpose:
+ *   Demonstrate that creat(path, mode) is the historical shorthand for
+ *   open(path, O_WRONLY | O_CREAT | O_TRUNC, mode).
+ *
+ * Linux behavior:
+ *   Both calls return independent descriptors and both requested modes are
+ *   filtered by the process umask. Descriptor values identify entries in this
+ *   process's descriptor table; matching behavior does not require matching
+ *   descriptor numbers.
+ */
+
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,6 +21,7 @@
 #define OPEN_PATH "build/chapters/02-file-io/data/created_with_open.txt"
 #define CREATION_MODE 0644
 
+/* Centralize close() checking so every successful open has a checked cleanup. */
 static int checked_close(int fd, const char *label)
 {
     if (close(fd) == -1) {
@@ -19,6 +34,7 @@ static int checked_close(int fd, const char *label)
 
 int main(void)
 {
+    /* creat() always requests write-only, create-if-needed, truncating access. */
     int creat_fd = creat(CREAT_PATH, CREATION_MODE);
     int open_fd;
 
@@ -27,11 +43,13 @@ int main(void)
         return EXIT_FAILURE;
     }
 
+    /* Spell out the flags that are equivalent to creat(). */
     open_fd = open(OPEN_PATH,
                    O_WRONLY | O_CREAT | O_TRUNC,
                    CREATION_MODE);
     if (open_fd == -1) {
         perror("open " OPEN_PATH);
+        /* Preserve the original open() failure while still releasing creat_fd. */
         (void) checked_close(creat_fd, "close creat descriptor");
         return EXIT_FAILURE;
     }
