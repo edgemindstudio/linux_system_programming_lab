@@ -64,10 +64,36 @@ do
     fi
 done
 
+required_chapter03_paths=(
+    chapters/03-buffered-io/notes/study-guide-pages-67-90.md
+    chapters/03-buffered-io/mental-models/buffered-io.md
+    chapters/03-buffered-io/exercises/01_standard_streams.c
+    chapters/03-buffered-io/exercises/14_manual_stream_locking.c
+    chapters/03-buffered-io/experiments/block_size.c
+    chapters/03-buffered-io/experiments/threaded_records.c
+    chapters/03-buffered-io/tests/smoke.sh
+    chapters/03-buffered-io/scripts/trace.sh
+)
+
+for path in "${required_chapter03_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 3 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 2 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/03-buffered-io -type f -name 'chapter03_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 3 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 

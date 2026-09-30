@@ -18,7 +18,8 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Repository foundation | Complete |
 | Chapter 1 — Introduction and Essential Concepts | In progress |
 | Chapter 2 — File I/O | Lab prepared; study in progress |
-| Chapters 3–11 | Scaffolded; not started |
+| Chapter 3 — Buffered I/O | Lab prepared; study in progress |
+| Chapters 4–11 | Scaffolded; not started |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.

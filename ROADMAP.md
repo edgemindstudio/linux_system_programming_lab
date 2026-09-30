@@ -21,7 +21,7 @@ alone.
 |---:|---|---|
 | 1 | Introduction and Essential Concepts | In progress |
 | 2 | File I/O | Lab prepared; study in progress |
-| 3 | Buffered I/O | Not started |
+| 3 | Buffered I/O | Lab prepared; study in progress |
 | 4 | Advanced File I/O | Not started |
 | 5 | Process Management | Not started |
 | 6 | Advanced Process Management | Not started |
@@ -88,7 +88,7 @@ building them.
 
 ## Chapter 3 — Buffered I/O
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -98,6 +98,14 @@ Focus:
 - flushing, stream positions, EOF, and errors;
 - thread safety and unlocked stream operations;
 - the relationship between standard I/O and descriptor-based I/O.
+
+The prepared laboratory contains fourteen focused exercises, six experiments,
+a complete study guide, a mental model, a tracing helper, and deterministic
+tests.
+
+Completion requires predicting when data remains in user space, identifying
+what causes a flush, distinguishing EOF from error, explaining stream and
+descriptor ownership, and measuring how buffering changes system-call traffic.
 
 ## Chapter 4 — Advanced File I/O
 

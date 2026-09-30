@@ -30,6 +30,12 @@ FOUNDATION_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%,$(FOUNDATION_SOURCES))
 CHAPTER_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%,$(CHAPTER_SOURCES))
 ALL_TARGETS := $(FOUNDATION_TARGETS) $(CHAPTER_TARGETS)
 
+THREADED_RECORDS_TARGET := \
+	$(BUILD_DIR)/chapters/03-buffered-io/experiments/threaded_records
+
+$(THREADED_RECORDS_TARGET): CFLAGS += -pthread
+$(THREADED_RECORDS_TARGET): LDLIBS += -pthread
+
 ACTIVE_CHAPTER_DIRS := $(sort \
 	$(foreach source,$(CHAPTER_SOURCES), \
 		$(patsubst %/,%,$(dir $(patsubst %/,%,$(dir $(source)))))))
