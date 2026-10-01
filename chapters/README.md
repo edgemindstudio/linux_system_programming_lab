@@ -11,7 +11,7 @@ Programming*, second edition.
 | 04-advanced-file-io | Advanced File I/O | Lab prepared; study in progress |
 | 05-process-management | Process Management | Lab prepared; study in progress |
 | 06-advanced-process-management | Advanced Process Management | Lab prepared; study in progress |
-| 07-threading | Threading | Not started |
+| 07-threading | Threading | Lab prepared; study in progress |
 | 08-file-and-directory-management | File and Directory Management | Not started |
 | 09-memory-management | Memory Management | Not started |
 | 10-signals | Signals | Not started |

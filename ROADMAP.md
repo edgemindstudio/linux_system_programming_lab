@@ -25,7 +25,7 @@ alone.
 | 4 | Advanced File I/O | Lab prepared; study in progress |
 | 5 | Process Management | Lab prepared; study in progress |
 | 6 | Advanced Process Management | Lab prepared; study in progress |
-| 7 | Threading | Not started |
+| 7 | Threading | Lab prepared; study in progress |
 | 8 | File and Directory Management | Not started |
 | 9 | Memory Management | Not started |
 | 10 | Signals | Not started |
@@ -174,7 +174,7 @@ internals from stable user-space APIs and current kernel evidence.
 
 ## Chapter 7 — Threading
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -182,6 +182,17 @@ Focus:
 - threading models and common patterns;
 - Pthreads creation, identity, termination, join, and detach;
 - mutexes, synchronization, and deadlocks.
+
+The prepared laboratory contains eighteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires separating process resources from per-thread execution
+state, distinguishing concurrency from parallelism, choosing a threading
+pattern deliberately, managing argument and result lifetimes, joining or
+detaching every thread, handling deferred cancellation safely, associating
+mutexes with protected data, preserving shared invariants, and preventing
+deadlocks through a consistent lock hierarchy.
 
 ## Chapter 8 — File and Directory Management
 
@@ -270,8 +281,9 @@ Every important topic follows this sequence:
 
 ## Current Next Step
 
-Continue studying Chapter 5's process lifecycle, then study Chapter 6 in order
-from scheduler state through resource limits. Keep the prepared programs
-unchanged until each concept has been explained, predicted, run, and observed.
-Use the experiments to distinguish stable APIs from environment-dependent
-scheduler measurements and current kernel implementation details.
+Continue Chapter 6 from scheduler state through resource limits, then study
+Chapter 7 in order from thread identity and lifecycle through races, mutexes,
+and deadlock prevention. Keep the prepared programs unchanged until each
+concept has been explained, predicted, run, and observed. Use the experiments
+to separate deterministic synchronization guarantees from timing-dependent
+observations.

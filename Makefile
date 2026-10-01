@@ -42,6 +42,14 @@ AIO_TARGETS := \
 
 $(AIO_TARGETS): LDLIBS += -lrt
 
+THREADING_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%, \
+	$(sort \
+		$(wildcard chapters/07-threading/exercises/*.c) \
+		$(wildcard chapters/07-threading/experiments/*.c)))
+
+$(THREADING_TARGETS): CFLAGS += -pthread
+$(THREADING_TARGETS): LDLIBS += -pthread
+
 ACTIVE_CHAPTER_DIRS := $(sort \
 	$(foreach source,$(CHAPTER_SOURCES), \
 		$(patsubst %/,%,$(dir $(patsubst %/,%,$(dir $(source)))))))

@@ -140,6 +140,25 @@ do
     fi
 done
 
+required_chapter07_paths=(
+    chapters/07-threading/notes/study-guide-pages-211-239.md
+    chapters/07-threading/mental-models/threading.md
+    chapters/07-threading/exercises/01_thread_identity.c
+    chapters/07-threading/exercises/18_condition_handoff.c
+    chapters/07-threading/experiments/logical_race_atomic.c
+    chapters/07-threading/experiments/deadlock_timeout.c
+    chapters/07-threading/tests/smoke.sh
+    chapters/07-threading/scripts/trace.sh
+)
+
+for path in "${required_chapter07_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 7 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -172,6 +191,13 @@ if find chapters/06-advanced-process-management -type f -name 'chapter06_*' -pri
     grep -q .
 then
     printf 'FAIL: a Chapter 6 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/07-threading -type f -name 'chapter07_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 7 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 
