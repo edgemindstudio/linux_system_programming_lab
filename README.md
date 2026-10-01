@@ -21,7 +21,8 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Chapter 3 — Buffered I/O | Lab prepared; study in progress |
 | Chapter 4 — Advanced File I/O | Lab prepared; study in progress |
 | Chapter 5 — Process Management | Lab prepared; study in progress |
-| Chapters 6–11 | Scaffolded; not started |
+| Chapter 6 — Advanced Process Management | Lab prepared; study in progress |
+| Chapters 7–11 | Scaffolded; not started |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.
@@ -185,7 +186,8 @@ build/
     ├── 02-file-io/
     ├── 03-buffered-io/
     ├── 04-advanced-file-io/
-    └── 05-process-management/
+    ├── 05-process-management/
+    └── 06-advanced-process-management/
         ├── data/
         ├── exercises/
         └── experiments/

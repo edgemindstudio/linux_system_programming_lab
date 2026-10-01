@@ -121,6 +121,25 @@ do
     fi
 done
 
+required_chapter06_paths=(
+    chapters/06-advanced-process-management/notes/study-guide-pages-177-209.md
+    chapters/06-advanced-process-management/mental-models/advanced-process-management.md
+    chapters/06-advanced-process-management/exercises/01_scheduler_snapshot.c
+    chapters/06-advanced-process-management/exercises/18_mlock_one_page.c
+    chapters/06-advanced-process-management/experiments/cpu_io_bound.c
+    chapters/06-advanced-process-management/experiments/proc_sched_inventory.c
+    chapters/06-advanced-process-management/tests/smoke.sh
+    chapters/06-advanced-process-management/scripts/trace.sh
+)
+
+for path in "${required_chapter06_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 6 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -146,6 +165,13 @@ if find chapters/05-process-management -type f -name 'chapter05_*' -print -quit 
     grep -q .
 then
     printf 'FAIL: a Chapter 5 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/06-advanced-process-management -type f -name 'chapter06_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 6 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 

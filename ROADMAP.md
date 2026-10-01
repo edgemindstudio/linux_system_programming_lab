@@ -24,7 +24,7 @@ alone.
 | 3 | Buffered I/O | Lab prepared; study in progress |
 | 4 | Advanced File I/O | Lab prepared; study in progress |
 | 5 | Process Management | Lab prepared; study in progress |
-| 6 | Advanced Process Management | Not started |
+| 6 | Advanced Process Management | Lab prepared; study in progress |
 | 7 | Threading | Not started |
 | 8 | File and Directory Management | Not started |
 | 9 | Memory Management | Not started |
@@ -152,7 +152,7 @@ daemonization and modern service supervision.
 
 ## Chapter 6 — Advanced Process Management
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -161,6 +161,16 @@ Focus:
 - processor affinity and I/O priorities;
 - real-time scheduling, latency, jitter, and determinism;
 - memory locking and resource limits.
+
+The prepared laboratory contains eighteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires explaining runnable and blocked state, preemption,
+CPU-bound and I/O-bound behavior, fair scheduling, nice values, affinity,
+real-time policy safety, latency and jitter, memory preparation, and soft and
+hard resource limits. It also requires distinguishing book-era scheduler
+internals from stable user-space APIs and current kernel evidence.
 
 ## Chapter 7 — Threading
 
@@ -260,8 +270,8 @@ Every important topic follows this sequence:
 
 ## Current Next Step
 
-Study Chapter 5 in order, beginning with process identity and the fork/exec
-lifecycle. Keep the prepared programs unchanged until each concept has been
-explained, predicted, run, and observed. Use the experiments to distinguish
-historical Unix descriptions from behavior in the current Linux process and
-PID-namespace environment.
+Continue studying Chapter 5's process lifecycle, then study Chapter 6 in order
+from scheduler state through resource limits. Keep the prepared programs
+unchanged until each concept has been explained, predicted, run, and observed.
+Use the experiments to distinguish stable APIs from environment-dependent
+scheduler measurements and current kernel implementation details.

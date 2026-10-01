@@ -10,7 +10,7 @@ Programming*, second edition.
 | 03-buffered-io | Buffered I/O | Lab prepared; study in progress |
 | 04-advanced-file-io | Advanced File I/O | Lab prepared; study in progress |
 | 05-process-management | Process Management | Lab prepared; study in progress |
-| 06-advanced-process-management | Advanced Process Management | Not started |
+| 06-advanced-process-management | Advanced Process Management | Lab prepared; study in progress |
 | 07-threading | Threading | Not started |
 | 08-file-and-directory-management | File and Directory Management | Not started |
 | 09-memory-management | Memory Management | Not started |
