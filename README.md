@@ -20,7 +20,8 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Chapter 2 — File I/O | Lab prepared; study in progress |
 | Chapter 3 — Buffered I/O | Lab prepared; study in progress |
 | Chapter 4 — Advanced File I/O | Lab prepared; study in progress |
-| Chapters 5–11 | Scaffolded; not started |
+| Chapter 5 — Process Management | Lab prepared; study in progress |
+| Chapters 6–11 | Scaffolded; not started |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.
@@ -183,7 +184,8 @@ build/
 └── chapters/
     ├── 02-file-io/
     ├── 03-buffered-io/
-    └── 04-advanced-file-io/
+    ├── 04-advanced-file-io/
+    └── 05-process-management/
         ├── data/
         ├── exercises/
         └── experiments/

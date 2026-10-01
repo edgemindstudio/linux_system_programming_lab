@@ -23,7 +23,7 @@ alone.
 | 2 | File I/O | Lab prepared; study in progress |
 | 3 | Buffered I/O | Lab prepared; study in progress |
 | 4 | Advanced File I/O | Lab prepared; study in progress |
-| 5 | Process Management | Not started |
+| 5 | Process Management | Lab prepared; study in progress |
 | 6 | Advanced Process Management | Not started |
 | 7 | Threading | Not started |
 | 8 | File and Directory Management | Not started |
@@ -132,7 +132,7 @@ context of the current storage stack.
 
 ## Chapter 5 — Process Management
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -140,6 +140,15 @@ Focus:
 - exec, fork, copy-on-write, and termination;
 - waiting, exit status, and zombie processes;
 - users, groups, sessions, process groups, and daemons.
+
+The prepared laboratory contains nineteen focused exercises, seven experiments,
+a complete study guide, a mental model, a tracing helper, and deterministic
+tests.
+
+Completion requires explaining the fork/exec split, copy-on-write, descriptor
+inheritance, termination cleanup, wait-status decoding, zombie reaping,
+credentials, sessions, process groups, and the difference between traditional
+daemonization and modern service supervision.
 
 ## Chapter 6 — Advanced Process Management
 
@@ -251,7 +260,8 @@ Every important topic follows this sequence:
 
 ## Current Next Step
 
-Study Chapter 4 in order, beginning with scatter/gather I/O. Keep the prepared
-programs unchanged until each concept has been explained, predicted, run, and
-observed. Use the experiments to connect each abstraction to behavior on the
-current Linux system.
+Study Chapter 5 in order, beginning with process identity and the fork/exec
+lifecycle. Keep the prepared programs unchanged until each concept has been
+explained, predicted, run, and observed. Use the experiments to distinguish
+historical Unix descriptions from behavior in the current Linux process and
+PID-namespace environment.

@@ -102,6 +102,25 @@ do
     fi
 done
 
+required_chapter05_paths=(
+    chapters/05-process-management/notes/study-guide-pages-137-175.md
+    chapters/05-process-management/mental-models/process-management.md
+    chapters/05-process-management/exercises/01_process_identity.c
+    chapters/05-process-management/exercises/19_reap_all_children.c
+    chapters/05-process-management/experiments/process_tree.c
+    chapters/05-process-management/experiments/subreaper_adoption.c
+    chapters/05-process-management/tests/smoke.sh
+    chapters/05-process-management/scripts/trace.sh
+)
+
+for path in "${required_chapter05_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 5 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -120,6 +139,13 @@ if find chapters/04-advanced-file-io -type f -name 'chapter04_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 4 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/05-process-management -type f -name 'chapter05_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 5 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 
