@@ -23,7 +23,8 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Chapter 5 — Process Management | Lab prepared; study in progress |
 | Chapter 6 — Advanced Process Management | Lab prepared; study in progress |
 | Chapter 7 — Threading | Lab prepared; study in progress |
-| Chapters 8–11 | Scaffolded; not started |
+| Chapter 8 — File and Directory Management | Lab prepared; study in progress |
+| Chapters 9–11 | Scaffolded; not started |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.
@@ -189,7 +190,8 @@ build/
     ├── 04-advanced-file-io/
     ├── 05-process-management/
     ├── 06-advanced-process-management/
-    └── 07-threading/
+    ├── 07-threading/
+    └── 08-file-and-directory-management/
         ├── data/
         ├── exercises/
         └── experiments/

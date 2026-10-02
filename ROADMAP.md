@@ -26,7 +26,7 @@ alone.
 | 5 | Process Management | Lab prepared; study in progress |
 | 6 | Advanced Process Management | Lab prepared; study in progress |
 | 7 | Threading | Lab prepared; study in progress |
-| 8 | File and Directory Management | Not started |
+| 8 | File and Directory Management | Lab prepared; study in progress |
 | 9 | Memory Management | Not started |
 | 10 | Signals | Not started |
 | 11 | Time | Not started |
@@ -196,7 +196,7 @@ deadlocks through a consistent lock hierarchy.
 
 ## Chapter 8 — File and Directory Management
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -206,6 +206,18 @@ Focus:
 - hard links, symbolic links, unlinking, copying, and moving;
 - device nodes and random data;
 - inotify and filesystem-event monitoring.
+
+The prepared laboratory contains eighteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires separating pathnames, directory entries, inodes, and open
+descriptors; interpreting metadata and permission bits; explaining ownership,
+umask, and extended attributes; traversing directory streams without assuming
+order or `d_type`; distinguishing hard links from symbolic links; reasoning
+about unlink, rename, and copy lifetimes; connecting device nodes to drivers;
+and managing the full inotify instance, watch, event, overflow, and cleanup
+lifecycle.
 
 ## Chapter 9 — Memory Management
 

@@ -159,6 +159,25 @@ do
     fi
 done
 
+required_chapter08_paths=(
+    chapters/08-file-and-directory-management/notes/study-guide-pages-241-292.md
+    chapters/08-file-and-directory-management/mental-models/file-and-directory-management.md
+    chapters/08-file-and-directory-management/exercises/01_stat_metadata.c
+    chapters/08-file-and-directory-management/exercises/18_inotify_lifecycle.c
+    chapters/08-file-and-directory-management/experiments/open_fd_across_rename.c
+    chapters/08-file-and-directory-management/experiments/inotify_nonrecursive.c
+    chapters/08-file-and-directory-management/tests/smoke.sh
+    chapters/08-file-and-directory-management/scripts/trace.sh
+)
+
+for path in "${required_chapter08_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 8 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -198,6 +217,13 @@ if find chapters/07-threading -type f -name 'chapter07_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 7 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/08-file-and-directory-management -type f -name 'chapter08_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 8 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 
