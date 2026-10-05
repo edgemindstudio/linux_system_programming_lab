@@ -216,6 +216,25 @@ do
     fi
 done
 
+required_chapter11_paths=(
+    chapters/11-time/notes/study-guide-pages-363-394.md
+    chapters/11-time/mental-models/time.md
+    chapters/11-time/exercises/01_time_data_types.c
+    chapters/11-time/exercises/18_posix_timer.c
+    chapters/11-time/experiments/wall_vs_cpu_time.c
+    chapters/11-time/experiments/timerfd_expirations.c
+    chapters/11-time/tests/smoke.sh
+    chapters/11-time/scripts/trace.sh
+)
+
+for path in "${required_chapter11_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 11 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -276,6 +295,13 @@ if find chapters/10-signals -type f -name 'chapter10_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 10 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/11-time -type f -name 'chapter11_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 11 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 

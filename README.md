@@ -26,7 +26,7 @@ and explanations. It does not reproduce the book's copyrighted text.
 | Chapter 8 — File and Directory Management | Lab prepared; study in progress |
 | Chapter 9 — Memory Management | Lab prepared; study in progress |
 | Chapter 10 — Signals | Lab prepared; study in progress |
-| Chapter 11 — Time | Scaffolded; not started |
+| Chapter 11 — Time | Lab prepared; study in progress |
 | Cross-chapter projects | Not started |
 
 See [ROADMAP.md](ROADMAP.md) for the complete learning sequence.
@@ -195,7 +195,8 @@ build/
     ├── 07-threading/
     ├── 08-file-and-directory-management/
     ├── 09-memory-management/
-    └── 10-signals/
+    ├── 10-signals/
+    └── 11-time/
         ├── data/
         ├── exercises/
         └── experiments/

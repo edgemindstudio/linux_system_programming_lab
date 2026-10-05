@@ -28,8 +28,8 @@ alone.
 | 7 | Threading | Lab prepared; study in progress |
 | 8 | File and Directory Management | Lab prepared; study in progress |
 | 9 | Memory Management | Lab prepared; study in progress |
-| 10 | Signals | Not started |
-| 11 | Time | Not started |
+| 10 | Signals | Lab prepared; study in progress |
+| 11 | Time | Lab prepared; study in progress |
 
 ## Repository Foundation
 
@@ -265,15 +265,29 @@ standard-signal coalescing, real-time queueing, race-free waiting, `EINTR`,
 
 ## Chapter 11 — Time
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
-- time representations and POSIX clocks;
-- resolution and clock selection;
-- wall-clock and process time;
-- setting and adjusting clocks;
-- sleeping, waiting, overruns, alarms, and timers.
+- wall, monotonic, boot, process, and thread clocks;
+- `time_t`, `timeval`, `timespec`, and broken-down civil time;
+- clock resolution, normalized arithmetic, and safe conversion;
+- UTC, local time, timezone policy, `mktime()`, and `strftime()`;
+- relative sleeping, interruption, remaining time, and absolute deadlines;
+- alarm, interval timers, POSIX timers, overruns, and Linux `timerfd`;
+- vDSO clock reads, procfs uptime, sysfs clock-source evidence, and timing
+  uncertainty.
+
+The prepared laboratory contains eighteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires choosing clocks by semantics; separating timestamps,
+elapsed durations, and CPU consumption; maintaining normalized time values;
+converting civil time with explicit timezone policy; handling `EINTR` and
+wake-up latency; using absolute deadlines to control periodic drift; managing
+timer lifecycles and overruns; and explaining how timerfd integrates time with
+descriptor-based event loops.
 
 ## Cross-Chapter Projects
 
@@ -315,8 +329,8 @@ Every important topic follows this sequence:
 ## Current Next Step
 
 Continue the prepared chapters in order, recording predictions and Linux
-evidence rather than treating successful builds as completion. For Chapter 10,
-move from signal lifecycle and dispositions through sending, safe handlers,
-masks, pending state, race-free waiting, interruption, metadata, payloads, and
-event-loop integration. Never signal unrelated processes or place unsafe work
-inside a handler merely to make a demonstration convenient.
+evidence rather than treating successful builds as completion. For Chapter 11,
+begin by separating civil, monotonic, boot, process, and thread time; then move
+through representation, conversion, sleeping, absolute deadlines, timers,
+overruns, and event-loop integration. Never change the host clock merely to
+demonstrate that realtime is adjustable.

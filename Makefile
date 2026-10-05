@@ -42,6 +42,12 @@ AIO_TARGETS := \
 
 $(AIO_TARGETS): LDLIBS += -lrt
 
+TIME_TIMER_TARGETS := \
+	$(BUILD_DIR)/chapters/11-time/exercises/18_posix_timer \
+	$(BUILD_DIR)/chapters/11-time/experiments/timer_overrun
+
+$(TIME_TIMER_TARGETS): LDLIBS += -lrt
+
 THREADING_TARGETS := $(patsubst %.c,$(BUILD_DIR)/%, \
 	$(sort \
 		$(wildcard chapters/07-threading/exercises/*.c) \

@@ -15,7 +15,7 @@ Programming*, second edition.
 | 08-file-and-directory-management | File and Directory Management | Lab prepared; study in progress |
 | 09-memory-management | Memory Management | Lab prepared; study in progress |
 | 10-signals | Signals | Lab prepared; study in progress |
-| 11-time | Time | Not started |
+| 11-time | Time | Lab prepared; study in progress |
 
 ## Chapter Contract
 
