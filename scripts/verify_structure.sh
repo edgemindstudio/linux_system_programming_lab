@@ -178,6 +178,25 @@ do
     fi
 done
 
+required_chapter09_paths=(
+    chapters/09-memory-management/notes/study-guide-pages-293-331.md
+    chapters/09-memory-management/mental-models/memory-management.md
+    chapters/09-memory-management/exercises/01_page_size.c
+    chapters/09-memory-management/exercises/19_mlock_page.c
+    chapters/09-memory-management/experiments/proc_maps_inventory.c
+    chapters/09-memory-management/experiments/overcommit_inventory.c
+    chapters/09-memory-management/tests/smoke.sh
+    chapters/09-memory-management/scripts/trace.sh
+)
+
+for path in "${required_chapter09_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 9 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -224,6 +243,13 @@ if find chapters/08-file-and-directory-management -type f -name 'chapter08_*' -p
     grep -q .
 then
     printf 'FAIL: a Chapter 8 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/09-memory-management -type f -name 'chapter09_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 9 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 

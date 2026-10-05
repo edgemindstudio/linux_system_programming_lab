@@ -13,7 +13,7 @@ Programming*, second edition.
 | 06-advanced-process-management | Advanced Process Management | Lab prepared; study in progress |
 | 07-threading | Threading | Lab prepared; study in progress |
 | 08-file-and-directory-management | File and Directory Management | Lab prepared; study in progress |
-| 09-memory-management | Memory Management | Not started |
+| 09-memory-management | Memory Management | Lab prepared; study in progress |
 | 10-signals | Signals | Not started |
 | 11-time | Time | Not started |
 

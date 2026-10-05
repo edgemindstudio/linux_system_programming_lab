@@ -27,7 +27,7 @@ alone.
 | 6 | Advanced Process Management | Lab prepared; study in progress |
 | 7 | Threading | Lab prepared; study in progress |
 | 8 | File and Directory Management | Lab prepared; study in progress |
-| 9 | Memory Management | Not started |
+| 9 | Memory Management | Lab prepared; study in progress |
 | 10 | Signals | Not started |
 | 11 | Time | Not started |
 
@@ -221,7 +221,7 @@ lifecycle.
 
 ## Chapter 9 — Memory Management
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -230,6 +230,16 @@ Focus:
 - data-segment and anonymous-mapping mechanisms;
 - stack allocations and memory manipulation;
 - memory locking, residency, overcommit, and OOM behavior.
+
+The prepared laboratory contains nineteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires explaining virtual address spaces, regions, pages, demand
+paging, allocator ownership, checked sizing, alignment, safe resizing,
+program-break and mapping mechanisms, bounded stack allocation, raw byte
+operations, residency, memory locking, resource limits, overcommit, and the
+difference between allocation success and guaranteed future backing.
 
 ## Chapter 10 — Signals
 
@@ -293,9 +303,9 @@ Every important topic follows this sequence:
 
 ## Current Next Step
 
-Continue Chapter 6 from scheduler state through resource limits, then study
-Chapter 7 in order from thread identity and lifecycle through races, mutexes,
-and deadlock prevention. Keep the prepared programs unchanged until each
-concept has been explained, predicted, run, and observed. Use the experiments
-to separate deterministic synchronization guarantees from timing-dependent
-observations.
+Continue the prepared chapters in order, recording predictions and Linux
+evidence rather than treating successful builds as completion. For Chapter 9,
+move from the address-space model through allocator ownership, anonymous
+mappings, stack storage, byte operations, residency, locking, and overcommit.
+Keep the OOM work observational and bounded; never destabilize the learning
+machine to demonstrate resource exhaustion.
