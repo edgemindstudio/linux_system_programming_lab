@@ -243,7 +243,7 @@ difference between allocation success and guaranteed future backing.
 
 ## Chapter 10 — Signals
 
-**Status:** Not started
+**Status:** Lab prepared; study in progress
 
 Focus:
 
@@ -251,6 +251,17 @@ Focus:
 - sending, blocking, pending, and waiting;
 - reentrancy and async-signal-safe behavior;
 - signal sets, siginfo, and payloads.
+
+The prepared laboratory contains eighteen focused exercises, seven
+experiments, a complete study guide, a mental model, a tracing helper, and
+deterministic tests.
+
+Completion requires explaining generation, pending state, delivery,
+dispositions, default actions, fork and exec inheritance, safe signal targets,
+handler reentrancy, async-signal-safe operations, signal sets and masks,
+standard-signal coalescing, real-time queueing, race-free waiting, `EINTR`,
+`SA_RESTART`, `siginfo_t`, payloads, self-pipe integration, and Linux
+`signalfd()` behavior.
 
 ## Chapter 11 — Time
 
@@ -304,8 +315,8 @@ Every important topic follows this sequence:
 ## Current Next Step
 
 Continue the prepared chapters in order, recording predictions and Linux
-evidence rather than treating successful builds as completion. For Chapter 9,
-move from the address-space model through allocator ownership, anonymous
-mappings, stack storage, byte operations, residency, locking, and overcommit.
-Keep the OOM work observational and bounded; never destabilize the learning
-machine to demonstrate resource exhaustion.
+evidence rather than treating successful builds as completion. For Chapter 10,
+move from signal lifecycle and dispositions through sending, safe handlers,
+masks, pending state, race-free waiting, interruption, metadata, payloads, and
+event-loop integration. Never signal unrelated processes or place unsafe work
+inside a handler merely to make a demonstration convenient.

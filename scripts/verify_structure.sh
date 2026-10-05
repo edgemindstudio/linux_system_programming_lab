@@ -197,6 +197,25 @@ do
     fi
 done
 
+required_chapter10_paths=(
+    chapters/10-signals/notes/study-guide-pages-333-362.md
+    chapters/10-signals/mental-models/signals.md
+    chapters/10-signals/exercises/01_signal_identifiers.c
+    chapters/10-signals/exercises/18_sigqueue_payload.c
+    chapters/10-signals/experiments/standard_signal_coalescing.c
+    chapters/10-signals/experiments/signalfd_dispatch.c
+    chapters/10-signals/tests/smoke.sh
+    chapters/10-signals/scripts/trace.sh
+)
+
+for path in "${required_chapter10_paths[@]}"
+do
+    if [[ ! -f $path ]]; then
+        printf 'FAIL: required Chapter 10 path is missing: %s\n' "$path" >&2
+        exit 1
+    fi
+done
+
 if find chapters/02-file-io -type f -name 'chapter02_*' -print -quit |
     grep -q .
 then
@@ -250,6 +269,13 @@ if find chapters/09-memory-management -type f -name 'chapter09_*' -print -quit |
     grep -q .
 then
     printf 'FAIL: a Chapter 9 filename repeats its parent chapter number\n' >&2
+    exit 1
+fi
+
+if find chapters/10-signals -type f -name 'chapter10_*' -print -quit |
+    grep -q .
+then
+    printf 'FAIL: a Chapter 10 filename repeats its parent chapter number\n' >&2
     exit 1
 fi
 

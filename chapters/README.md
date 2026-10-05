@@ -14,7 +14,7 @@ Programming*, second edition.
 | 07-threading | Threading | Lab prepared; study in progress |
 | 08-file-and-directory-management | File and Directory Management | Lab prepared; study in progress |
 | 09-memory-management | Memory Management | Lab prepared; study in progress |
-| 10-signals | Signals | Not started |
+| 10-signals | Signals | Lab prepared; study in progress |
 | 11-time | Time | Not started |
 
 ## Chapter Contract
